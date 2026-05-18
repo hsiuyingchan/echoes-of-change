@@ -14,6 +14,8 @@
     "docker:logs": "docker compose logs -f",
     "docker:status": "docker compose ps",
     "docker:shell": "docker compose --profile dev exec dev sh",
+    "docker:build": "docker build -t hsiuyingchan/echoes-of-change:latest .",
+    "docker:push": "docker push hsiuyingchan/echoes-of-change:latest",
     "deploy": "./scripts/deploy-to-s3.sh landing-page",
     "teardown": "./scripts/teardown-s3.sh landing-page",
     "deploy:apprunner": "./scripts/deploy-to-apprunner.sh landing-page",
@@ -33,7 +35,7 @@
     "aws",
     "docker"
   ],
-  "author": "Your Name",
+  "author": "Hsiu Ying Chan",
   "license": "MIT",
   "type": "module",
   "dependencies": {
