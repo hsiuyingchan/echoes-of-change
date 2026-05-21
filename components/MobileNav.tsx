@@ -43,7 +43,7 @@ export function MobileNav() {
       <button
         onClick={toggleMenu}
         ref={toggleButtonRef}
-        className="p-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        className="p-2 text-teal-900/60 dark:text-ivory/60 hover:text-teal-900 dark:hover:text-ivory transition-colors"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
@@ -55,46 +55,46 @@ export function MobileNav() {
       {isOpen ? (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-navy/20 backdrop-blur-sm"
             onClick={closeMenu}
             aria-hidden="true"
           />
           <div
             id="mobile-menu"
-            className="fixed top-16 right-0 z-50 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 transform translate-x-0 transition-transform duration-300 ease-in-out"
+            className="fixed top-20 right-0 z-50 w-64 h-[calc(100vh-5rem)] bg-ivory dark:bg-navy border-l border-teal-900/5 dark:border-ivory/5 transform translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation menu"
           >
-            <nav className="flex flex-col p-6 space-y-4">
+            <nav className="flex flex-col p-8 space-y-6">
               <a
-                href="#services"
+                href="#how-it-works"
                 onClick={closeMenu}
                 ref={firstLinkRef}
-                className="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
+                className="text-lg font-display font-medium text-teal-900/70 dark:text-ivory/70 hover:text-teal-900 dark:hover:text-ivory transition-colors py-2"
               >
-                Services
+                How It Works
               </a>
               <a
-                href="#about"
+                href="#reflection"
                 onClick={closeMenu}
-                className="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
+                className="text-lg font-display font-medium text-teal-900/70 dark:text-ivory/70 hover:text-teal-900 dark:hover:text-ivory transition-colors py-2"
               >
-                About
+                Daily Reflection
               </a>
               <a
-                href="#work"
+                href="#benefits"
                 onClick={closeMenu}
-                className="text-base font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
+                className="text-lg font-display font-medium text-teal-900/70 dark:text-ivory/70 hover:text-teal-900 dark:hover:text-ivory transition-colors py-2"
               >
-                Work
+                Benefits
               </a>
               <a
-                href="#contact"
+                href="#reflection"
                 onClick={closeMenu}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg text-base font-medium transition-colors text-center mt-4"
+                className="bg-teal-900 hover:bg-teal-800 text-ivory px-6 py-4 rounded-full text-base font-semibold transition-all text-center mt-6 shadow-xl shadow-teal-900/20"
               >
-                Contact
+                Begin Reflection
               </a>
             </nav>
           </div>

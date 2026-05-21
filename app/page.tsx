@@ -1,179 +1,354 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MobileNav } from "@/components/MobileNav";
 import {
+  CheckIcon,
+  ArrowRightIcon,
   SparklesIcon,
   BookOpenIcon,
-  TrendingUpIcon,
-  Logo,
+  UsersIcon,
+  BoltIcon,
 } from "@/components/Icons";
+import { CoinToss } from "@/components/CoinToss";
+import { AmbientAudio } from "@/components/AmbientAudio";
+import { PrivacyBadge } from "@/components/PrivacyBadge";
 
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+
   return (
     <>
+      <AmbientAudio />
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-teal-800 focus:text-white focus:rounded-lg focus:outline-none"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-teal-900 focus:text-white focus:rounded-lg focus:outline-none"
       >
         Skip to main content
       </a>
-      <main id="main-content" className="min-h-screen bg-[#FBFCFB] dark:bg-stone-950 font-sans selection:bg-teal-100">
-        {/* NAVIGATION */}
-        <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-50 bg-[#FBFCFB]/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-stone-100 dark:border-stone-800">
-          <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-16">
-            <div className="flex items-center gap-3 cursor-pointer group">
-              <Logo className="w-8 h-8 group-hover:rotate-180 transition-transform duration-1000" />
-              <span className="text-lg font-medium tracking-tight font-display text-stone-800 dark:text-stone-100">
+      
+      <main id="main-content" className="min-h-screen bg-ivory dark:bg-navy selection:bg-sage/30 relative">
+        {/* Navigation */}
+        <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-50 bg-ivory/80 dark:bg-navy/80 backdrop-blur-md border-b border-teal-900/5 dark:border-ivory/5">
+          <div className="container mx-auto px-6 flex items-center justify-between h-20">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3 cursor-pointer"
+            >
+              <div className="w-10 h-10 rounded-full bg-teal-900 flex items-center justify-center text-ivory font-display text-lg shadow-inner">
+                ☯
+              </div>
+              <span className="text-xl font-display font-semibold tracking-wide text-teal-900 dark:text-ivory">
                 Echoes of Change
               </span>
-            </div>
+            </motion.div>
 
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-                Features
+            <div className="hidden md:flex items-center gap-10">
+              <a href="#how-it-works" className="text-sm font-medium text-teal-900/70 dark:text-ivory/70 hover:text-teal-900 dark:hover:text-ivory transition-colors">
+                How It Works
               </a>
-              <a href="/resume" className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-                The Creator
+              <a href="#reflection" className="text-sm font-medium text-teal-900/70 dark:text-ivory/70 hover:text-teal-900 dark:hover:text-ivory transition-colors">
+                Daily Reflection
               </a>
-              <a href="/reflection" className="bg-teal-800 dark:bg-teal-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-teal-900 transition-colors">
-                Start Reflection
+              <a href="#benefits" className="text-sm font-medium text-teal-900/70 dark:text-ivory/70 hover:text-teal-900 dark:hover:text-ivory transition-colors">
+                Benefits
               </a>
+              <motion.a 
+                href="#reflection" 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-teal-900 text-ivory px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-teal-800 transition-all shadow-lg shadow-teal-900/10"
+              >
+                Begin Reflection
+              </motion.a>
             </div>
             <MobileNav />
           </div>
         </nav>
 
-        {/* HERO SECTION - RE-DESIGNED FOR SERENE AESTHETIC */}
-        <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden">
-          {/* Flowing Energy Lines (SVG) */}
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+          {/* Background Energy Lines & Glows */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
-            <svg className="absolute top-0 left-0 w-full h-full opacity-20 dark:opacity-10" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-              <path d="M0,500 C200,400 300,600 500,500 C700,400 800,600 1000,500" fill="none" stroke="url(#gradient-teal)" strokeWidth="2" className="animate-[pulse_8s_infinite]" />
-              <path d="M0,550 C250,450 350,650 550,550 C750,450 850,650 1000,550" fill="none" stroke="url(#gradient-sage)" strokeWidth="1" className="animate-[pulse_10s_infinite]" />
-              <defs>
-                <linearGradient id="gradient-teal" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2D6A6A" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#2D6A6A" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#2D6A6A" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient id="gradient-sage" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#9CAF88" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#9CAF88" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#9CAF88" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-            </svg>
+            <motion.div style={{ y: y1 }} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-sage/10 rounded-full blur-[100px] glow-effect"></motion.div>
+            <motion.div style={{ y: y2 }} className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-teal-900/5 rounded-full blur-[120px] glow-effect"></motion.div>
+            
+            <motion.div 
+              animate={{ x: ["-100%", "100%"] }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="energy-line top-[30%] -rotate-6"
+            ></motion.div>
+            <motion.div 
+              animate={{ x: ["100%", "-100%"] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="energy-line top-[60%] rotate-3"
+            ></motion.div>
+            
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] dark:opacity-[0.05] pointer-events-none">
+              <svg width="600" height="600" viewBox="0 0 100 100" className="animate-spin-slow">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <path d="M50 2A48 48 0 0 1 50 98A24 24 0 0 1 50 50A24 24 0 0 0 50 2" fill="currentColor" />
+                <circle cx="50" cy="26" r="6" fill="white" />
+                <circle cx="50" cy="74" r="6" fill="black" />
+              </svg>
+            </div>
           </div>
 
-          {/* Background Glows */}
-          <div className="absolute top-0 right-0 -z-10 w-[800px] h-[800px] bg-teal-50/50 dark:bg-teal-900/10 rounded-full blur-[120px] opacity-70 translate-x-1/4 -translate-y-1/4"></div>
-          <div className="absolute bottom-0 left-0 -z-10 w-[600px] h-[600px] bg-emerald-50/40 dark:bg-emerald-900/10 rounded-full blur-[100px] opacity-60 -translate-x-1/4 translate-y-1/4"></div>
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-3 mb-8 px-4 py-1.5 rounded-full bg-sage/10 border border-sage/20 text-teal-900 dark:text-sage text-sm font-medium"
+              >
+                <span className="text-lg">䷊</span>
+                <span>Hexagram 11: Harmony & Prosperity</span>
+              </motion.div>
 
-          <div className="container mx-auto px-4 md:px-6 text-center">
-            <div className="max-w-4xl mx-auto">
-              {/* Soft Glowing Yin-Yang Logo */}
-              <div className="mb-12 inline-block relative">
-                <div className="absolute inset-0 bg-teal-400 blur-2xl opacity-20 rounded-full animate-pulse"></div>
-                <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full border border-teal-100 dark:border-teal-800 bg-white/50 dark:bg-stone-900/50 backdrop-blur-sm flex items-center justify-center shadow-sm">
-                  <Logo className="w-16 h-16 md:w-20 md:h-20" />
-                </div>
-              </div>
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-5xl md:text-7xl lg:text-8xl font-display font-medium text-teal-900 dark:text-ivory mb-8 leading-[1.1]"
+              >
+                Find Harmony in <br className="hidden md:block" /> Every Change
+              </motion.h1>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-display tracking-tight text-stone-900 dark:text-stone-50 mb-8 leading-[1.05]">
-                Find Harmony in <br className="hidden md:block" />
-                Every Change
-              </h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-xl md:text-2xl text-teal-900/60 dark:text-ivory/60 mb-12 max-w-2xl mx-auto font-light leading-relaxed"
+              >
+                Your private I-Ching companion and daily <span className="text-teal-900 dark:text-ivory font-medium">WRITITATION™</span> guide. Navigate life&apos;s transitions with ancient wisdom and modern clarity.
+              </motion.p>
 
-              <p className="text-xl md:text-2xl text-stone-500/90 dark:text-stone-400 mb-14 max-w-2xl mx-auto leading-relaxed font-light">
-                Your personal I-Ching companion and <span className="font-medium text-teal-700 dark:text-teal-300 italic">WRITITATION™</span> guide — daily wisdom that helps you understand life’s patterns and become your better self.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a 
-                  href="/reflection" 
-                  className="group relative inline-flex items-center justify-center px-10 py-5 text-lg font-semibold text-white bg-teal-800 dark:bg-teal-600 rounded-full transition-all hover:scale-105 hover:bg-teal-900 shadow-xl shadow-teal-900/10 overflow-hidden"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-teal-700 to-teal-800 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                  <span className="relative">Start Free Daily Reflection</span>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6 }}
+                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+              >
+                <a href="#reflection" className="group relative inline-flex items-center justify-center px-10 py-5 text-lg font-semibold text-ivory bg-teal-900 rounded-full transition-all hover:bg-teal-800 shadow-2xl shadow-teal-900/20">
+                  Start Free Daily Reflection
+                  <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
 
-        {/* FEATURES / BENEFITS */}
-        <section id="features" className="py-24 bg-white dark:bg-stone-950">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="grid md:grid-cols-3 gap-16 max-w-6xl mx-auto">
-              {/* Benefit 1 */}
-              <div className="flex flex-col items-center text-center group">
-                <div className="w-16 h-16 rounded-3xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center text-teal-700 dark:text-teal-400 mb-8 border border-teal-100 dark:border-teal-800 group-hover:rotate-6 transition-transform">
-                  <SparklesIcon className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-50 mb-4">AI-Powered I-Ching</h3>
-                <p className="text-stone-500 dark:text-stone-400 leading-relaxed font-light">
-                  Cast authentic hexagrams with personalized guidance that resonates with your specific situation.
-                </p>
-              </div>
-
-              {/* Benefit 2 */}
-              <div className="flex flex-col items-center text-center group">
-                <div className="w-16 h-16 rounded-3xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 mb-8 border border-emerald-100 dark:border-emerald-800 group-hover:-rotate-6 transition-transform">
-                  <BookOpenIcon className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-50 mb-4">WRITITATION™ Flow</h3>
-                <p className="text-stone-500 dark:text-stone-400 leading-relaxed font-light">
-                  Experience guided writing and meditation in a single, seamless flow designed to deepen your insights.
-                </p>
-              </div>
-
-              {/* Benefit 3 */}
-              <div className="flex flex-col items-center text-center group">
-                <div className="w-16 h-16 rounded-3xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center text-teal-700 dark:text-teal-400 mb-8 border border-teal-100 dark:border-teal-800 group-hover:scale-110 transition-transform">
-                  <TrendingUpIcon className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-semibold text-stone-900 dark:text-stone-50 mb-4">Growth Tracking</h3>
-                <p className="text-stone-500 dark:text-stone-400 leading-relaxed font-light">
-                  Track your evolving patterns over time and visualize the journey of your personal transformation.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CALL TO ACTION */}
-        <section id="reflection" className="py-32 bg-teal-50/30 dark:bg-stone-900">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-2xl mx-auto">
-              <div className="inline-block mb-6 px-4 py-1 rounded-full bg-teal-100/50 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 text-xs font-bold tracking-widest uppercase">
-                Begin Your Journey
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-stone-900 dark:text-stone-50 mb-8 font-display">
-                Ready to understand <br /> your patterns?
-              </h2>
-              <p className="text-lg text-stone-500 dark:text-stone-400 mb-12 font-light max-w-lg mx-auto">
-                Join a community of seekers using Echoes of Change to navigate life with clarity, purpose, and inner peace.
+        {/* Cast the Coins Section */}
+        <section className="section-padding bg-ivory dark:bg-navy">
+          <div className="container mx-auto px-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-5xl font-display font-medium text-teal-900 dark:text-ivory mb-6">Consult the Oracle</h2>
+              <p className="text-teal-900/60 dark:text-ivory/60 max-w-xl mx-auto font-light">
+                Cast three virtual coins six times to reveal the hexagram governing your current situation.
               </p>
-              <a href="/reflection" className="inline-flex items-center justify-center px-12 py-5 text-xl font-semibold text-white bg-teal-800 dark:bg-teal-600 rounded-full transition-all hover:scale-105 hover:bg-teal-900 shadow-2xl shadow-teal-900/20">
-                Get Started for Free
-              </a>
+            </motion.div>
+            
+            <div className="max-w-4xl mx-auto">
+              <CoinToss />
             </div>
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className="py-16 bg-white dark:bg-stone-950 border-t border-stone-100 dark:border-stone-900">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        {/* How It Works Section */}
+        <section id="how-it-works" className="section-padding bg-ivory/50 dark:bg-navy/50 relative overflow-hidden">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl md:text-5xl font-display font-medium text-teal-900 dark:text-ivory mb-6">The Path of Reflection</h2>
+              <div className="w-20 h-px bg-gold mx-auto opacity-50"></div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-16 max-w-5xl mx-auto">
+              {[
+                { icon: UsersIcon, title: "1. Share Your Context", color: "sage", text: "Simply describe your current situation or question. Echoes listens with complete privacy and local-first security." },
+                { icon: BookOpenIcon, title: "2. Receive Ancient Insight", color: "teal-900", text: "Ancient I-Ching algorithms reveal your Hexagram, offering timeless perspectives on the shifting currents of your life." },
+                { icon: SparklesIcon, title: "3. Deepen with WRITITATION™", color: "gold", text: "Follow guided journaling prompts to integrate the wisdom, moving from passive insight to active transformation." }
+              ].map((step, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.2 }}
+                  className="text-center group"
+                >
+                  <div className={`w-20 h-20 rounded-2xl bg-sage/5 flex items-center justify-center text-sage mb-8 mx-auto group-hover:bg-sage/10 transition-colors border border-sage/10`}>
+                    <step.icon className="w-10 h-10" />
+                  </div>
+                  <h3 className="text-xl font-display font-semibold mb-4 text-teal-900 dark:text-ivory">{step.title}</h3>
+                  <p className="text-teal-900/60 dark:text-ivory/60 leading-relaxed font-light">
+                    {step.text}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Daily Reflection Section */}
+        <section id="reflection" className="section-padding">
+          <div className="container mx-auto px-6">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto bg-white dark:bg-navy/40 rounded-[3rem] p-8 md:p-16 border border-teal-900/5 dark:border-ivory/5 shadow-2xl shadow-teal-900/5 relative overflow-hidden"
+            >
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-gold/10 rounded-full blur-[80px]"></div>
+              
+              <div className="relative">
+                <div className="flex items-center gap-4 mb-10">
+                  <div className="w-12 h-12 rounded-full bg-teal-900 flex items-center justify-center text-ivory text-xl">☯</div>
+                  <div>
+                    <h2 className="text-2xl md:text-4xl font-display font-medium text-teal-900 dark:text-ivory">Start Free Daily Reflection</h2>
+                    <p className="text-teal-900/40 dark:text-ivory/40 text-sm">A sacred space for your evolving self</p>
+                  </div>
+                </div>
+
+                <div className="space-y-10">
+                  <div className="p-8 rounded-2xl bg-ivory/50 dark:bg-navy/20 border border-teal-900/5 dark:border-ivory/5 italic text-teal-900/70 dark:text-ivory/70 leading-relaxed text-lg text-center md:text-left">
+                    &quot;The superior person stays focused on the internal center, regardless of the chaos of the external world. Change is the only constant; harmony is the only response.&quot;
+                  </div>
+
+                  <div className="space-y-6">
+                    <p className="text-teal-900 dark:text-ivory font-medium">Today&apos;s WRITITATION™ Inquiry:</p>
+                    <div className="text-3xl md:text-4xl font-display text-teal-900/80 dark:text-ivory/80 leading-snug">
+                      What aspect of your current transition is inviting you to practice radical patience?
+                    </div>
+                  </div>
+
+                  <div className="pt-6">
+                    <a href="/journal" className="inline-block w-full md:w-auto px-12 py-5 bg-teal-900 text-ivory rounded-full font-semibold hover:bg-teal-800 transition-all shadow-xl shadow-teal-900/20 text-center">
+                      Open Reflection Journal
+                    </a>
+                    <PrivacyBadge />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section id="benefits" className="section-padding bg-teal-900 text-ivory relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <motion.div 
+              animate={{ x: ["-100%", "100%"] }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="energy-line top-1/4 -rotate-12 bg-ivory"
+            ></motion.div>
+            <motion.div 
+              animate={{ x: ["100%", "-100%"] }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="energy-line bottom-1/3 rotate-6 bg-gold"
+            ></motion.div>
+          </div>
+
+          <div className="container mx-auto px-6 relative">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-20 items-center">
+                <div>
+                  <h2 className="text-4xl md:text-6xl font-display font-medium mb-10 leading-[1.1]">Why Echoes <br />of Change?</h2>
+                  <div className="space-y-8">
+                    {[
+                      { title: "Ancestral Wisdom, Reimagined", text: "We use high-fidelity translations and deep algorithms to preserve the nuance of the I-Ching while making it relevant for 2026." },
+                      { title: "WRITITATION™ Methodology", text: "Combining the meditative state of writing with targeted philosophical inquiry to unlock deep subconscious insights." },
+                      { title: "Absolute Privacy", text: "Local-first architecture ensures your most private thoughts never leave your device. You are the sole curator of your wisdom." }
+                    ].map((item, i) => (
+                      <motion.div 
+                        key={i}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        className="flex gap-6"
+                      >
+                        <div className="w-12 h-12 rounded-full border border-ivory/20 flex items-center justify-center flex-shrink-0 text-gold">
+                          <CheckIcon />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                          <p className="text-ivory/60 leading-relaxed font-light">{item.text}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative">
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="aspect-square rounded-full border border-ivory/10 flex items-center justify-center p-12"
+                  >
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-sage/20 to-teal-800 flex items-center justify-center relative overflow-hidden shadow-inner">
+                      <div className="text-8xl md:text-[12rem] animate-pulse">☯</div>
+                      {/* Abstract Floating Hexagrams */}
+                      <div className="absolute top-10 right-10 text-2xl opacity-40">䷀</div>
+                      <div className="absolute bottom-10 left-10 text-2xl opacity-40">䷁</div>
+                      <div className="absolute top-1/2 left-4 text-2xl opacity-40">䷊</div>
+                      <div className="absolute top-1/2 right-4 text-2xl opacity-40">䷋</div>
+                    </div>
+                  </motion.div>
+                  <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/5 blur-[100px]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-20 bg-ivory dark:bg-navy border-t border-teal-900/5 dark:border-ivory/5">
+          <div className="container mx-auto px-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-16">
               <div className="flex items-center gap-3">
-                <Logo className="w-6 h-6 opacity-60" />
-                <span className="text-sm font-semibold text-stone-900 dark:text-stone-100 tracking-tight">Echoes of Change</span>
+                <div className="w-8 h-8 rounded-full bg-teal-900 flex items-center justify-center text-ivory text-sm">
+                  ☯
+                </div>
+                <span className="text-lg font-display font-semibold text-teal-900 dark:text-ivory">
+                  Echoes of Change
+                </span>
               </div>
-              <div className="flex gap-10">
-                <a href="#" className="text-[10px] text-stone-400 hover:text-teal-600 transition-colors uppercase tracking-[0.2em] font-bold">Privacy</a>
-                <a href="#" className="text-[10px] text-stone-400 hover:text-teal-600 transition-colors uppercase tracking-[0.2em] font-bold">Terms</a>
-                <a href="/resume" className="text-[10px] text-stone-400 hover:text-teal-600 transition-colors uppercase tracking-[0.2em] font-bold">Creator</a>
+              
+              <div className="flex flex-wrap justify-center gap-10">
+                <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
+                  <span className="w-1 h-1 rounded-full bg-sage"></span>
+                  Private & Local-first
+                </div>
+                <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
+                  <span className="w-1 h-1 rounded-full bg-sage"></span>
+                  Honoring Tradition
+                </div>
+                <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
+                  <span className="w-1 h-1 rounded-full bg-sage"></span>
+                  No Subscriptions
+                </div>
               </div>
-              <div className="text-[10px] text-stone-400 font-medium uppercase tracking-widest">
-                © {new Date().getFullYear()} Echoes of Change
+            </div>
+
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-teal-900/5 dark:border-ivory/5">
+              <div className="text-sm text-teal-900/40 dark:text-ivory/40">
+                © {new Date().getFullYear()} Echoes of Change. Crafted for the soul.
+              </div>
+              <div className="flex items-center gap-8">
+                <a href="#" className="text-xs font-medium text-teal-900/30 dark:text-ivory/30 hover:text-teal-900 dark:hover:text-ivory transition-colors">
+                  Privacy Philosophy
+                </a>
+                <a href="#" className="text-xs font-medium text-teal-900/30 dark:text-ivory/30 hover:text-teal-900 dark:hover:text-ivory transition-colors">
+                  Terms of Service
+                </a>
               </div>
             </div>
           </div>

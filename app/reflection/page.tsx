@@ -1,89 +1,164 @@
-import { MobileNav } from "@/components/MobileNav";
-import { Logo } from "@/components/Icons";
+"use client";
+
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
+import { Hexagram } from "@/components/Hexagram";
+import { getHexagramData } from "@/lib/iching";
+import { 
+  ArrowRightIcon, 
+  SparklesIcon, 
+  CheckIcon,
+  BookOpenIcon 
+} from "@/components/Icons";
+
+function ReflectionContent() {
+  const searchParams = useSearchParams();
+  const [lines, setLines] = useState<number[]>([]);
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    const linesParam = searchParams.get("lines");
+    if (linesParam) {
+      setLines(linesParam.split(",").map(Number));
+    }
+  }, [searchParams]);
+
+  const hexData = getHexagramData(lines);
+
+  const saveToArchive = () => {
+    // In a real app, this would save to a database.
+    // For this demo, we'll simulate success and a local save.
+    const entry = {
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      hexagram: hexData.number.toString(),
+      name: hexData.name,
+      prompt: hexData.meaning,
+      preview: hexData.judgment,
+      lines: lines
+    };
+    
+    const existing = JSON.parse(localStorage.getItem('iching_archive') || '[]');
+    localStorage.setItem('iching_archive', JSON.stringify([entry, ...existing]));
+    
+    setIsSaved(true);
+  };
+
+  if (lines.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-teal-900/40">
+        Seeking the oracle...
+      </div>
+    );
+  }
+
+  return (
+    <main className="min-h-screen bg-ivory dark:bg-navy selection:bg-sage/30">
+      {/* Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-sage/5 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px]"></div>
+      </div>
+
+      <div className="container mx-auto max-w-4xl px-6 py-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <p className="text-xs uppercase tracking-[0.3em] text-teal-900/40 dark:text-ivory/40 font-bold mb-4">The Oracle has Spoken</p>
+          <h1 className="text-4xl md:text-6xl font-display font-medium text-teal-900 dark:text-ivory">Your Reflection Result</h1>
+        </motion.div>
+
+        <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
+          {/* Hexagram Display */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white/50 dark:bg-navy/20 p-12 rounded-[3rem] border border-teal-900/5 flex flex-col items-center gap-8 shadow-2xl shadow-teal-900/5"
+          >
+            <Hexagram lines={lines} size={180} className="text-teal-900 dark:text-ivory" />
+            <div className="text-center">
+              <div className="text-5xl font-display text-teal-900 dark:text-ivory mb-2">#{hexData.number}</div>
+              <div className="text-xl font-display font-semibold text-teal-900 dark:text-ivory">{hexData.name}</div>
+              <div className="text-sm text-sage italic font-light">{hexData.pinyin}</div>
+            </div>
+          </motion.div>
+
+          {/* Interpretation */}
+          <div className="space-y-10">
+            <motion.section 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="space-y-4"
+            >
+              <h2 className="text-xs uppercase tracking-widest text-teal-900/40 font-bold">The Meaning</h2>
+              <p className="text-2xl font-display text-teal-900 dark:text-ivory leading-snug">
+                {hexData.meaning}
+              </p>
+            </motion.section>
+
+            <motion.section 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="p-8 rounded-3xl bg-teal-900/5 border border-teal-900/5 space-y-4"
+            >
+              <h3 className="text-xs uppercase tracking-widest text-teal-900/40 font-bold">The Judgment</h3>
+              <p className="text-teal-900/70 dark:text-ivory/70 italic leading-relaxed">
+                &quot;{hexData.judgment}&quot;
+              </p>
+            </motion.section>
+
+            <motion.section 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="space-y-4"
+            >
+              <h3 className="text-xs uppercase tracking-widest text-teal-900/40 font-bold">The Image</h3>
+              <p className="text-teal-900/70 dark:text-ivory/70 leading-relaxed font-light">
+                {hexData.image}
+              </p>
+            </motion.section>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 pt-6"
+            >
+              <button 
+                onClick={saveToArchive}
+                disabled={isSaved}
+                className={`flex-1 px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2 ${
+                  isSaved ? "bg-sage/20 text-teal-900/40 cursor-not-allowed" : "bg-teal-900 text-ivory hover:bg-teal-800"
+                }`}
+              >
+                {isSaved ? <CheckIcon className="w-5 h-5" /> : <SparklesIcon className="w-5 h-5" />}
+                {isSaved ? "Saved to Archive" : "Save to My Archive"}
+              </button>
+              <a 
+                href="/journal" 
+                className="flex-1 px-8 py-4 rounded-full font-bold border-2 border-teal-900/10 text-teal-900 dark:text-ivory hover:border-teal-900/30 transition-all flex items-center justify-center gap-2"
+              >
+                <BookOpenIcon className="w-5 h-5" />
+                Go to Journal
+              </a>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
 
 export default function ReflectionPage() {
   return (
-    <main className="min-h-screen bg-[#FBFCFB] dark:bg-stone-950 font-sans selection:bg-teal-100">
-      {/* NAVIGATION */}
-      <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-50 bg-[#FBFCFB]/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-stone-100 dark:border-stone-800">
-        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-16">
-          <div className="flex items-center gap-3 cursor-pointer group">
-            <a href="/" className="flex items-center gap-3">
-              <Logo className="w-8 h-8 group-hover:rotate-180 transition-transform duration-1000" />
-              <span className="text-lg font-medium tracking-tight font-display text-stone-800 dark:text-stone-100">
-                Echoes of Change
-              </span>
-            </a>
-          </div>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="/" className="text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-teal-600 transition-colors">
-              Home
-            </a>
-          </div>
-          <MobileNav />
-        </div>
-      </nav>
-
-      {/* HERO SECTION */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        {/* Background elements (Teal/Sage aesthetic) */}
-        <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-teal-50/50 dark:bg-teal-900/10 rounded-full blur-3xl opacity-70 translate-x-1/3 -translate-y-1/4"></div>
-        <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-emerald-50/30 dark:bg-emerald-900/10 rounded-full blur-3xl opacity-70 -translate-x-1/3 translate-y-1/4"></div>
-
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <div className="max-w-3xl mx-auto">
-            <div className="mb-12 inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full border border-teal-100 dark:border-teal-800 bg-white/50 dark:bg-stone-900/50 backdrop-blur-sm shadow-sm">
-              <Logo className="w-12 h-12 md:w-16 md:h-16" />
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl font-bold font-display tracking-tight text-stone-900 dark:text-stone-50 mb-6">
-              Start Free Daily Reflection
-            </h1>
-
-            <p className="text-xl md:text-2xl text-stone-500 dark:text-stone-400 mb-12 leading-relaxed font-light">
-              Let the I-Ching speak to your current situation and guide you through a peaceful <span className="font-medium text-teal-700 dark:text-teal-300 italic">WRITITATION™</span> session.
-            </p>
-
-            <div className="flex flex-col items-center gap-4">
-              <button className="inline-flex items-center justify-center px-10 py-5 text-lg font-semibold text-white bg-teal-800 dark:bg-teal-600 rounded-full transition-all hover:scale-105 hover:bg-teal-900 shadow-xl shadow-teal-900/10">
-                Start My Reflection
-              </button>
-              <p className="text-sm text-stone-400 dark:text-stone-500 font-light tracking-wide">
-                Takes 8–12 minutes • Completely private • No account needed
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TRUST & FOOTER TEXT */}
-      <section className="py-20 border-t border-stone-50 dark:border-stone-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 text-center">
-            <div className="p-6">
-              <h3 className="text-sm font-bold text-teal-800 dark:text-teal-400 uppercase tracking-widest mb-3">Privacy</h3>
-              <p className="text-stone-500 dark:text-stone-400 text-sm font-light">100% Private • Local-first AI</p>
-            </div>
-            <div className="p-6">
-              <h3 className="text-sm font-bold text-teal-800 dark:text-teal-400 uppercase tracking-widest mb-3">Tradition</h3>
-              <p className="text-stone-500 dark:text-stone-400 text-sm font-light">Built with respect for the I-Ching tradition</p>
-            </div>
-            <div className="p-6">
-              <h3 className="text-sm font-bold text-teal-800 dark:text-teal-400 uppercase tracking-widest mb-3">Impact</h3>
-              <p className="text-stone-500 dark:text-stone-400 text-sm font-light">Designed for real personal growth</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="py-12 bg-white dark:bg-stone-950 border-t border-stone-100 dark:border-stone-900">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <p className="text-[10px] text-stone-400 font-medium uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} Echoes of Change • Peace & Reflection
-          </p>
-        </div>
-      </footer>
-    </main>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ReflectionContent />
+    </Suspense>
   );
 }

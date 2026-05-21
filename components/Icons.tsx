@@ -5,111 +5,6 @@ interface IconProps {
   className?: string;
 }
 
-export function Logo({ className = "w-10 h-10" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <filter id="logo-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="1.5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-        <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#D4AF37" />
-          <stop offset="50%" stopColor="#FFD700" />
-          <stop offset="100%" stopColor="#B8860B" />
-        </linearGradient>
-        <radialGradient id="center-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#2D6A6A" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#2D6A6A" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      
-      {/* Outer Ethereal Circle (Hexagram Patterns) */}
-      <circle cx="50" cy="50" r="49" stroke="#F4F1EA" strokeWidth="0.25" strokeDasharray="1 3" opacity="0.3" />
-      <circle cx="50" cy="50" r="47" stroke="#9CAF88" strokeWidth="0.5" strokeDasharray="4 2" opacity="0.1" />
-      
-      {/* 8 Bagua Trigrams Ring */}
-      <g stroke="#F4F1EA" strokeWidth="1.2" strokeLinecap="round" opacity="0.6">
-        {/* Top: Qian (Heaven) - ☰ */}
-        <g transform="translate(50, 15)">
-          <line x1="-6" y1="-3" x2="6" y2="-3" stroke="#D4AF37" strokeWidth="1" />
-          <line x1="-6" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Bottom: Kun (Earth) - ☷ */}
-        <g transform="translate(50, 85)">
-          <line x1="-6" y1="-3" x2="-1" y2="-3" /> <line x1="1" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="-1" y2="0" /> <line x1="1" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="-1" y2="3" /> <line x1="1" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Right: Li (Fire) - ☲ */}
-        <g transform="translate(85, 50) rotate(90)">
-          <line x1="-6" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="-1" y2="0" /> <line x1="1" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Left: Kan (Water) - ☵ */}
-        <g transform="translate(15, 50) rotate(90)">
-          <line x1="-6" y1="-3" x2="-1" y2="-3" /> <line x1="1" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="-1" y2="3" /> <line x1="1" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Top-Right: Dui (Lake) - ☱ */}
-        <g transform="translate(75, 25) rotate(45)">
-          <line x1="-6" y1="-3" x2="-1" y2="-3" /> <line x1="1" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Top-Left: Gen (Mountain) - ☶ */}
-        <g transform="translate(25, 25) rotate(-45)">
-          <line x1="-6" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="-1" y2="0" /> <line x1="1" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="-1" y2="3" /> <line x1="1" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Bottom-Right: Xun (Wind) - ☴ */}
-        <g transform="translate(75, 75) rotate(135)">
-          <line x1="-6" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="-1" y2="3" /> <line x1="1" y1="3" x2="6" y2="3" />
-        </g>
-        {/* Bottom-Left: Zhen (Thunder) - ☳ */}
-        <g transform="translate(25, 75) rotate(-135)">
-          <line x1="-6" y1="-3" x2="-1" y2="-3" /> <line x1="1" y1="-3" x2="6" y2="-3" />
-          <line x1="-6" y1="0" x2="-1" y2="0" /> <line x1="1" y1="0" x2="6" y2="0" />
-          <line x1="-6" y1="3" x2="6" y2="3" />
-        </g>
-      </g>
-      
-      {/* Sacred Geometric Inner Ring */}
-      <circle cx="50" cy="50" r="32" stroke="url(#gold-grad)" strokeWidth="0.5" opacity="0.4" />
-      
-      {/* Central Yin-Yang made of intricate lines */}
-      <g filter="url(#logo-glow)">
-        <circle cx="50" cy="50" r="24" fill="url(#center-glow)" />
-        
-        {/* Yang Side (Deep Teal) */}
-        <g stroke="#134E4E" strokeWidth="1.8" strokeLinecap="round">
-          <line x1="42" y1="36" x2="58" y2="36" />
-          <line x1="39" y1="40" x2="61" y2="40" />
-          <line x1="38" y1="44" x2="62" y2="44" />
-          <line x1="40" y1="48" x2="50" y2="48" strokeWidth="2.5" />
-        </g>
-        
-        {/* Yin Side (Warm Sage) */}
-        <g stroke="#9CAF88" strokeWidth="1.8" strokeLinecap="round">
-          <line x1="50" y1="52" x2="60" y2="52" strokeWidth="2.5" />
-          <line x1="38" y1="56" x2="48" y2="56" /> <line x1="52" y1="56" x2="62" y2="56" />
-          <line x1="39" y1="60" x2="48" y2="60" /> <line x1="52" y1="60" x2="61" y2="60" />
-          <line x1="42" y1="64" x2="48" y2="64" /> <line x1="52" y1="64" x2="58" y2="64" />
-        </g>
-        
-        {/* Gold Accent - Floating Center Dot */}
-        <circle cx="50" cy="50" r="1.5" fill="#D4AF37" />
-      </g>
-    </svg>
-  );
-}
-
 export function CheckIcon({ className = "w-5 h-5" }: IconProps) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,14 +117,6 @@ export function XTwitterIcon({ className = "w-5 h-5" }: IconProps) {
   );
 }
 
-export function PlayIcon({ className = "w-5 h-5" }: IconProps) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M8 5v14l11-7z" />
-    </svg>
-  );
-}
-
 export function MenuIcon({ className = "w-6 h-6" }: IconProps) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -242,6 +129,14 @@ export function CloseIcon({ className = "w-6 h-6" }: IconProps) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  );
+}
+
+export function ChevronRightIcon({ className = "w-5 h-5" }: IconProps) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
     </svg>
   );
 }
