@@ -1,154 +1,175 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { useEffect, useState, Suspense } from "react";
+import { getHexagramData, HexagramData } from "@/lib/iching";
 import { Hexagram } from "@/components/Hexagram";
-import { getHexagramData } from "@/lib/iching";
-import { 
-  ArrowRightIcon, 
-  SparklesIcon, 
-  CheckIcon,
-  BookOpenIcon 
-} from "@/components/Icons";
+import { motion } from "framer-motion";
+import { ArrowRightIcon, SparklesIcon } from "@/components/Icons";
 
 function ReflectionContent() {
   const searchParams = useSearchParams();
+  const [hexagram, setHexagram] = useState<HexagramData | null>(null);
   const [lines, setLines] = useState<number[]>([]);
-  const [isSaved, setIsSaved] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     const linesParam = searchParams.get("lines");
     if (linesParam) {
-      setLines(linesParam.split(",").map(Number));
+      const parsedLines = linesParam.split(",").map(Number);
+      setLines(parsedLines);
+      setHexagram(getHexagramData(parsedLines));
     }
   }, [searchParams]);
 
-  const hexData = getHexagramData(lines);
+  const handleSave = async () => {
+    if (!hexagram || !question) {
+      alert("Please describe your situation or question first.");
+      return;
+    }
 
-  const saveToArchive = () => {
-    // In a real app, this would save to a database.
-    // For this demo, we'll simulate success and a local save.
-    const entry = {
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      hexagram: hexData.number.toString(),
-      name: hexData.name,
-      prompt: hexData.meaning,
-      preview: hexData.judgment,
-      lines: lines
-    };
-    
-    const existing = JSON.parse(localStorage.getItem('iching_archive') || '[]');
-    localStorage.setItem('iching_archive', JSON.stringify([entry, ...existing]));
-    
-    setIsSaved(true);
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/save-reading", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, hexagram }),
+      });
+
+      if (res.ok) {
+        setSaved(true);
+      } else {
+        alert("Failed to save reading.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while saving.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  if (lines.length === 0) {
+  const microPractices = [
+    "Place one hand on your heart and take three slow, deep breaths.",
+    "Notice three things you are grateful for in this very moment.",
+    "Drink a glass of water slowly, focusing on its coolness and clarity.",
+    "Stretch your arms toward the sky and then let them fall gently to your sides.",
+    "Briefly close your eyes and listen to the furthest sound you can hear.",
+  ];
+
+  const [microPractice] = useState(() => microPractices[Math.floor(Math.random() * microPractices.length)]);
+
+  if (!hexagram) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-teal-900/40">
-        Seeking the oracle...
+      <div className="min-h-screen flex items-center justify-center bg-ivory dark:bg-navy">
+        <p className="text-teal-900 dark:text-ivory">Echo is reflecting on the patterns...</p>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-ivory dark:bg-navy selection:bg-sage/30">
-      {/* Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-sage/5 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px]"></div>
-      </div>
-
-      <div className="container mx-auto max-w-4xl px-6 py-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <p className="text-xs uppercase tracking-[0.3em] text-teal-900/40 dark:text-ivory/40 font-bold mb-4">The Oracle has Spoken</p>
-          <h1 className="text-4xl md:text-6xl font-display font-medium text-teal-900 dark:text-ivory">Your Reflection Result</h1>
-        </motion.div>
-
-        <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
-          {/* Hexagram Display */}
-          <motion.div 
+    <main className="min-h-screen bg-ivory dark:bg-navy p-8 md:p-20">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <header className="text-center space-y-4">
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white/50 dark:bg-navy/20 p-12 rounded-[3rem] border border-teal-900/5 flex flex-col items-center gap-8 shadow-2xl shadow-teal-900/5"
+            className="inline-block p-4 rounded-full bg-teal-900 text-ivory text-2xl mb-4"
           >
-            <Hexagram lines={lines} size={180} className="text-teal-900 dark:text-ivory" />
-            <div className="text-center">
-              <div className="text-5xl font-display text-teal-900 dark:text-ivory mb-2">#{hexData.number}</div>
-              <div className="text-xl font-display font-semibold text-teal-900 dark:text-ivory">{hexData.name}</div>
-              <div className="text-sm text-sage italic font-light">{hexData.pinyin}</div>
+            ☯
+          </motion.div>
+          <h1 className="text-4xl md:text-6xl font-display font-medium text-teal-900 dark:text-ivory">
+            Hexagram {hexagram.number}: {hexagram.name}
+          </h1>
+          <p className="text-xl text-sage font-medium">{hexagram.pinyin}</p>
+        </header>
+
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-8"
+          >
+            <div className="p-8 bg-white/50 dark:bg-navy/20 rounded-3xl border border-teal-900/5 dark:border-ivory/5 shadow-xl">
+              <Hexagram lines={lines} size={200} className="text-teal-900 dark:text-ivory mx-auto" />
+            </div>
+            
+            <div className="space-y-4">
+              <h2 className="text-sm uppercase tracking-widest text-teal-900/40 dark:text-ivory/40 font-bold">Echo&apos;s Reflection</h2>
+              <p className="text-xl text-teal-900/80 dark:text-ivory/80 font-light italic leading-relaxed">
+                &quot;{hexagram.meaning}&quot;
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-sage/10 border border-sage/20 text-teal-900 dark:text-ivory italic text-sm">
+              <p className="font-bold uppercase tracking-widest text-[10px] mb-2 opacity-60">A Micro-Practice for You</p>
+              {microPractice}
             </div>
           </motion.div>
 
-          {/* Interpretation */}
-          <div className="space-y-10">
-            <motion.section 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="space-y-4"
-            >
-              <h2 className="text-xs uppercase tracking-widest text-teal-900/40 font-bold">The Meaning</h2>
-              <p className="text-2xl font-display text-teal-900 dark:text-ivory leading-snug">
-                {hexData.meaning}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-8"
+          >
+            <div className="space-y-4">
+              <h2 className="text-sm uppercase tracking-widest text-teal-900/40 dark:text-ivory/40 font-bold">The Way of the Journey</h2>
+              <p className="text-teal-900/70 dark:text-ivory/70 leading-relaxed">
+                {hexagram.judgment}
               </p>
-            </motion.section>
+            </div>
 
-            <motion.section 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="p-8 rounded-3xl bg-teal-900/5 border border-teal-900/5 space-y-4"
-            >
-              <h3 className="text-xs uppercase tracking-widest text-teal-900/40 font-bold">The Judgment</h3>
-              <p className="text-teal-900/70 dark:text-ivory/70 italic leading-relaxed">
-                &quot;{hexData.judgment}&quot;
+            <div className="space-y-4">
+              <h2 className="text-sm uppercase tracking-widest text-teal-900/40 dark:text-ivory/40 font-bold">The Natural Image</h2>
+              <p className="text-teal-900/70 dark:text-ivory/70 leading-relaxed">
+                {hexagram.image}
               </p>
-            </motion.section>
+            </div>
 
-            <motion.section 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-              className="space-y-4"
-            >
-              <h3 className="text-xs uppercase tracking-widest text-teal-900/40 font-bold">The Image</h3>
-              <p className="text-teal-900/70 dark:text-ivory/70 leading-relaxed font-light">
-                {hexData.image}
-              </p>
-            </motion.section>
+            <div className="pt-8 space-y-6">
+              <div className="space-y-4">
+                <label className="text-sm font-medium text-teal-900/60 dark:text-ivory/60">
+                  Simply describe your current situation or question
+                </label>
+                <textarea
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  placeholder="Focus your intention... Echo is listening."
+                  className="w-full h-32 bg-white/30 dark:bg-navy/30 border-2 border-teal-900/5 dark:border-ivory/5 rounded-2xl p-4 focus:border-sage/30 focus:outline-none transition-all resize-none"
+                />
+              </div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 pt-6"
-            >
-              <button 
-                onClick={saveToArchive}
-                disabled={isSaved}
-                className={`flex-1 px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2 ${
-                  isSaved ? "bg-sage/20 text-teal-900/40 cursor-not-allowed" : "bg-teal-900 text-ivory hover:bg-teal-800"
+              <button
+                onClick={handleSave}
+                disabled={isSaving || saved}
+                className={`w-full py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2 shadow-lg ${
+                  saved
+                    ? "bg-sage text-teal-900 cursor-default"
+                    : "bg-teal-900 text-ivory hover:bg-teal-800 shadow-teal-900/20"
                 }`}
               >
-                {isSaved ? <CheckIcon className="w-5 h-5" /> : <SparklesIcon className="w-5 h-5" />}
-                {isSaved ? "Saved to Archive" : "Save to My Archive"}
+                {saved ? (
+                  <>
+                    <SparklesIcon className="w-5 h-5" />
+                    Reading Nurtured in Archive
+                  </>
+                ) : isSaving ? (
+                  "Nurturing..."
+                ) : (
+                  <>
+                    Nurture Reading in Archive
+                    <ArrowRightIcon className="w-5 h-5" />
+                  </>
+                )}
               </button>
-              <a 
-                href="/journal" 
-                className="flex-1 px-8 py-4 rounded-full font-bold border-2 border-teal-900/10 text-teal-900 dark:text-ivory hover:border-teal-900/30 transition-all flex items-center justify-center gap-2"
-              >
-                <BookOpenIcon className="w-5 h-5" />
-                Go to Journal
+              
+              <a href="/" className="block text-center text-sm text-teal-900/40 hover:text-teal-900 transition-colors uppercase tracking-widest font-bold">
+                Return to Your Center
               </a>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </main>
@@ -157,7 +178,7 @@ function ReflectionContent() {
 
 export default function ReflectionPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div>Loading reflection...</div>}>
       <ReflectionContent />
     </Suspense>
   );

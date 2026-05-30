@@ -150,9 +150,9 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-display font-medium text-teal-900 dark:text-ivory mb-6">Consult the Oracle</h2>
+              <h2 className="text-3xl md:text-5xl font-display font-medium text-teal-900 dark:text-ivory mb-6">Consult Echo</h2>
               <p className="text-teal-900/60 dark:text-ivory/60 max-w-xl mx-auto font-light">
-                Cast three virtual coins six times to reveal the hexagram governing your current situation.
+                Cast three virtual coins six times. Let Echo guide you through the emerging patterns of your current journey.
               </p>
             </motion.div>
             
@@ -166,15 +166,15 @@ export default function Home() {
         <section id="how-it-works" className="section-padding bg-ivory/50 dark:bg-navy/50 relative overflow-hidden">
           <div className="container mx-auto px-6">
             <div className="text-center mb-20">
-              <h2 className="text-3xl md:text-5xl font-display font-medium text-teal-900 dark:text-ivory mb-6">The Path of Reflection</h2>
+              <h2 className="text-3xl md:text-5xl font-display font-medium text-teal-900 dark:text-ivory mb-6">A Journey of Self-Care</h2>
               <div className="w-20 h-px bg-gold mx-auto opacity-50"></div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-16 max-w-5xl mx-auto">
               {[
-                { icon: UsersIcon, title: "1. Share Your Context", color: "sage", text: "Simply describe your current situation or question. Echoes listens with complete privacy and local-first security." },
-                { icon: BookOpenIcon, title: "2. Receive Ancient Insight", color: "teal-900", text: "Ancient I-Ching algorithms reveal your Hexagram, offering timeless perspectives on the shifting currents of your life." },
-                { icon: SparklesIcon, title: "3. Deepen with WRITITATION™", color: "gold", text: "Follow guided journaling prompts to integrate the wisdom, moving from passive insight to active transformation." }
+                { icon: UsersIcon, title: "1. Share Your Context", color: "sage", text: "Simply describe your current situation. Echo listens with warmth and total privacy." },
+                { icon: BookOpenIcon, title: "2. Gentle Guidance", color: "teal-900", text: "Echo translates the ancient I-Ching wisdom into a compassionate reflection of your inner state." },
+                { icon: SparklesIcon, title: "3. Nurture Your Path", color: "gold", text: "Integrate the insights through gentle micro-practices and WRITITATION™ inquiries." }
               ].map((step, i) => (
                 <motion.div 
                   key={i}
@@ -225,7 +225,7 @@ export default function Home() {
                   <div className="space-y-6">
                     <p className="text-teal-900 dark:text-ivory font-medium">Today&apos;s WRITITATION™ Inquiry:</p>
                     <div className="text-3xl md:text-4xl font-display text-teal-900/80 dark:text-ivory/80 leading-snug">
-                      What aspect of your current transition is inviting you to practice radical patience?
+                      Simply describe your current situation or question
                     </div>
                   </div>
 
@@ -325,15 +325,15 @@ export default function Home() {
               <div className="flex flex-wrap justify-center gap-10">
                 <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
                   <span className="w-1 h-1 rounded-full bg-sage"></span>
+                  Guided by Echo
+                </div>
+                <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
+                  <span className="w-1 h-1 rounded-full bg-sage"></span>
                   Private & Local-first
                 </div>
                 <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
                   <span className="w-1 h-1 rounded-full bg-sage"></span>
-                  Honoring Tradition
-                </div>
-                <div className="flex items-center gap-2 text-sm text-teal-900/40 dark:text-ivory/40">
-                  <span className="w-1 h-1 rounded-full bg-sage"></span>
-                  No Subscriptions
+                  Self-Care Journey
                 </div>
               </div>
             </div>

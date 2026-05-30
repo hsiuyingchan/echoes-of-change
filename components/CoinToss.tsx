@@ -126,7 +126,7 @@ export function CoinToss() {
                   href={`/reflection?lines=${lines.join(",")}`}
                   className="px-8 py-3 bg-sage text-teal-900 rounded-full font-bold hover:bg-sage/80 transition-all shadow-lg shadow-sage/20 animate-bounce"
                 >
-                  Consult the Oracle
+                  Listen to Echo&apos;s Guidance
                 </a>
               </motion.div>
             )}
