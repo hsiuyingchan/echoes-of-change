@@ -129,3 +129,51 @@ meaning: "Harmony between heaven and earth. Success and flourishing."
 ---
 
 Archive entry test
+---
+date: 2026-06-14T21:36:32.617Z
+question: "What lesson is this year 2026 trying to teach me?"
+hexagram_number: 1
+hexagram_name: "The Creative"
+meaning: "Infinite energy, initiation, and divine timing."
+---
+
+# Echo's Reading: The Creative
+
+**Question:** What lesson is this year 2026 trying to teach me?
+
+**The Meaning:** Infinite energy, initiation, and divine timing.
+
+**The Judgment:** The Creative works sublime success, furthering through perseverance.
+
+**The Image:** The movement of heaven is full of power. Thus the superior person makes himself strong and untiring.
+
+## The Transformation
+
+By aligning my daily choices with my core values.
+
+## Echo's Micro-Practice for You
+
+_Drink a glass of water slowly, focusing on its coolness and clarity._
+
+---
+
+---
+date: 2026-06-14T21:42:17.929Z
+question: "I'm feeling grateful for the support of my friends and family."
+hexagram_number: 0
+hexagram_name: "The Flow of Change"
+meaning: "A unique transition point in your journey."
+---
+
+# Echo's Reading: The Flow of Change
+
+**Question:** I'm feeling grateful for the support of my friends and family.
+
+**The Meaning:** A unique transition point in your journey.
+
+**The Judgment:** Success is found in the center of the movement. Observe the subtle shifts.
+
+**The Image:** Water flows over rock. The path reveals itself to the patient observer.
+
+---
+
