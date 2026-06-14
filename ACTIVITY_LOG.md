@@ -16,7 +16,7 @@ Chronological record of project milestones, feature implementations, and signifi
 - **Feature (Archive)**: Implemented `/archive` page and `/api/archive` endpoint to allow users to view their history of readings and journal entries.
 - **Navigation Flow**: Fixed the "Reading Nurtured in Archive" button in the reflection page to correctly direct users to the newly created Archive.
 - **Journal Enhancement**: Added a "View Your Archive" option to the journal completion screen for better navigation.
-- **Audio Setup**: Created `public/audio` directory and provided instructions for local 1111Hz frequency management.
+- **Audio Setup**: Generated a local 1111Hz binaural healing frequency file (`public/audio/1111hz.mp3`) and updated the `AmbientAudio` component to play it locally, ensuring a peaceful and copyright-safe experience.
 - **System Integrity**: Verified dev environment and ensured persistence to markdown files continues to function.
 
 ---

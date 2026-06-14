@@ -30,7 +30,7 @@ export function AmbientAudio() {
       <audio
         ref={audioRef}
         loop
-        src="https://freqies.com/download/1111-hz-sine-wave.mp3" // 1111Hz Healing Frequency
+        src="/audio/1111hz.mp3" // Local 1111Hz Healing Frequency (Binaural)
       />
       {isPlaying && (
         <div className="absolute top-1/2 left-full ml-4 -translate-y-1/2 bg-ivory/90 dark:bg-navy/90 backdrop-blur-md px-3 py-1 rounded-full border border-teal-900/5 dark:border-ivory/5 text-[10px] uppercase tracking-widest font-bold whitespace-nowrap">
