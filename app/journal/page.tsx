@@ -215,7 +215,10 @@ export default function JournalPage() {
               <p className="text-xl text-teal-900/60 font-light max-w-xl mx-auto">
                 Your 1, 2, 3 path has been preserved in your Private Wisdom Sanctuary. Return to your center with this new harmony.
               </p>
-              <div className="pt-4">
+              <div className="pt-4 flex flex-col md:flex-row justify-center gap-4">
+                <a href="/archive" className="inline-block px-12 py-5 bg-sage text-teal-900 rounded-full font-semibold hover:bg-sage/80 shadow-xl shadow-sage/20">
+                  View Your Archive
+                </a>
                 <a href="/" className="inline-block px-12 py-5 bg-teal-900 text-ivory rounded-full font-semibold hover:bg-teal-800 shadow-xl shadow-teal-900/20">
                   Return Home
                 </a>

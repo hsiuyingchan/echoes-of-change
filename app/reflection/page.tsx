@@ -142,11 +142,11 @@ function ReflectionContent() {
               </div>
 
               <button
-                onClick={handleSave}
-                disabled={isSaving || saved}
+                onClick={saved ? () => window.location.href = "/archive" : handleSave}
+                disabled={isSaving}
                 className={`w-full py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2 shadow-lg ${
                   saved
-                    ? "bg-sage text-teal-900 cursor-default"
+                    ? "bg-sage text-teal-900 cursor-pointer hover:bg-sage/80"
                     : "bg-teal-900 text-ivory hover:bg-teal-800 shadow-teal-900/20"
                 }`}
               >

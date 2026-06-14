@@ -79,3 +79,52 @@ _Place one hand on your heart and take three slow, deep breaths._
 
 ---
 
+---
+date: 2026-06-14T20:42:09.700Z
+question: "How can I best navigate my life transition in this year 2026? "
+hexagram_number: 0
+hexagram_name: "The Flow of Change"
+meaning: "A unique transition point in your journey."
+---
+
+# Echo's Reading: The Flow of Change
+
+**Question:** How can I best navigate my life transition in this year 2026? 
+
+**The Meaning:** A unique transition point in your journey.
+
+**The Judgment:** Success is found in the center of the movement. Observe the subtle shifts.
+
+**The Image:** Water flows over rock. The path reveals itself to the patient observer.
+
+## The Transformation
+
+By keeping a calm mind and open heart.
+
+
+## Echo's Micro-Practice for You
+
+_Briefly close your eyes and listen to the furthest sound you can hear._
+
+---
+
+---
+date: 2026-06-14T20:54:46.415Z
+question: "what qualities or strengths do I need to emphasize for this year 2026 success?"
+hexagram_number: 11
+hexagram_name: "Peace"
+meaning: "Harmony between heaven and earth. Success and flourishing."
+---
+
+# Echo's Reading: Peace
+
+**Question:** what qualities or strengths do I need to emphasize for this year 2026 success?
+
+**The Meaning:** Harmony between heaven and earth. Success and flourishing.
+
+**The Judgment:** Peace. The small departs, the great approaches. Good fortune. Success.
+
+**The Image:** Heaven and earth unite: the image of Peace. Thus the ruler divides and completes the course of heaven and earth.
+
+---
+
