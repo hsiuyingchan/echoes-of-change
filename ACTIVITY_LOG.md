@@ -12,4 +12,11 @@ Chronological record of project milestones, feature implementations, and signifi
 - **Results Enhanced**: Added randomized Micro-Practices and visual hexagram summaries to the journey completion screen.
 - **Commit**: Saved all changes to local git repository.
 
+## [2026-06-14] Archive Implementation & Navigation Fixes
+- **Feature (Archive)**: Implemented `/archive` page and `/api/archive` endpoint to allow users to view their history of readings and journal entries.
+- **Navigation Flow**: Fixed the "Reading Nurtured in Archive" button in the reflection page to correctly direct users to the newly created Archive.
+- **Journal Enhancement**: Added a "View Your Archive" option to the journal completion screen for better navigation.
+- **Audio Setup**: Created `public/audio` directory and provided instructions for local 1111Hz frequency management.
+- **System Integrity**: Verified dev environment and ensured persistence to markdown files continues to function.
+
 ---
