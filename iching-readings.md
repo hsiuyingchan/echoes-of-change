@@ -177,3 +177,51 @@ meaning: "A unique transition point in your journey."
 
 ---
 
+---
+date: 2026-06-15T20:57:58.951Z
+question: "I'm feeling grateful for the supportive people in my life right now. There's a sense of excitement about new opportunities ahead. I also feel a little nervous about the unknowns that come with change. Over all, my heart feels hopeful and open to what's coming next."
+hexagram_number: 9
+hexagram_name: "Small Taming"
+meaning: "Small influences that create gentle restraint."
+---
+
+# Echo's Reading: Small Taming
+
+**Question:** I'm feeling grateful for the supportive people in my life right now. There's a sense of excitement about new opportunities ahead. I also feel a little nervous about the unknowns that come with change. Over all, my heart feels hopeful and open to what's coming next.
+
+**The Meaning:** Small influences that create gentle restraint.
+
+**The Judgment:** Small Taming has success. Dense clouds, no rain from our western region. Gentle persuasion moves the heart.
+
+**The Image:** The wind drives across the heavens. Thus the wise one refines the outward show of their nature.
+
+## The Transformation
+
+Through steady, deliberate, and mindful steps.
+
+## Echo's Micro-Practice for You
+
+_Stretch your arms toward the sky and then let them fall gently to your sides._
+
+---
+
+---
+date: 2026-06-15T21:03:22.244Z
+question: "What should I understand about the energy of my current path versus a new path?"
+hexagram_number: 39
+hexagram_name: "Obstruction"
+meaning: "A temporary halt. Turning back to find a better way."
+---
+
+# Echo's Reading: Obstruction
+
+**Question:** What should I understand about the energy of my current path versus a new path?
+
+**The Meaning:** A temporary halt. Turning back to find a better way.
+
+**The Judgment:** Obstruction. The southwest furthers, the northeast does not. It furthers one to see the great man. Perseverance brings good fortune.
+
+**The Image:** Water on the mountain. Thus the wise one turns their attention to themselves and molds their character.
+
+---
+

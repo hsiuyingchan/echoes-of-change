@@ -44,10 +44,9 @@ describe("MobileNav", () => {
 
     await user.click(screen.getByRole("button", { name: "Open menu" }));
 
-    expect(screen.getByRole("link", { name: "Services" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Work" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Contact" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "How It Works" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Daily Reflection" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Benefits" })).toBeInTheDocument();
   });
 
   it("moves focus to the first link when opened", async () => {
@@ -56,7 +55,7 @@ describe("MobileNav", () => {
 
     await user.click(screen.getByRole("button", { name: "Open menu" }));
 
-    expect(screen.getByRole("link", { name: "Services" })).toHaveFocus();
+    expect(screen.getByRole("link", { name: "How It Works" })).toHaveFocus();
   });
 
   it("closes on Escape and returns focus to the toggle button", async () => {

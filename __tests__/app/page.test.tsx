@@ -18,10 +18,11 @@ describe("Home page", () => {
 
   it("contains key section headings", () => {
     render(<Home />);
-    // Use heading role to avoid matching nav link text like "Services"
+    // Use heading role to avoid matching nav link text
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Services" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Featured Work" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Consult Echo/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /A Journey of Self-Care/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Why Echoes of Change\?/i })).toBeInTheDocument();
   });
 
   it("contains the footer", () => {
